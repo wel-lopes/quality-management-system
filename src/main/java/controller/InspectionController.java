@@ -1,5 +1,7 @@
 package com.weberth.qualitymanagementsystem.controller;
 
+import com.weberth.qualitymanagementsystem.dto.InspectionRequestDTO;
+import com.weberth.qualitymanagementsystem.dto.InspectionResponseDTO;
 import com.weberth.qualitymanagementsystem.entity.Inspection;
 import com.weberth.qualitymanagementsystem.service.InspectionService;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,12 +19,12 @@ public class InspectionController {
     }
 
     @PostMapping
-    public Inspection createInspection(@RequestBody Inspection inspection) {
-        return inspectionService.saveInspection(inspection);
+    public InspectionResponseDTO createInspection(@RequestBody InspectionRequestDTO dto) {
+        return inspectionService.saveInspection(dto);
     }
 
     @GetMapping
-    public List<Inspection> getAllInspections() {
+    public List<InspectionResponseDTO> getAllInspections() {
         return inspectionService.getAllInspections();
     }
 }
