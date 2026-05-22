@@ -18,7 +18,6 @@ public class InspectionService {
     }
 
     public InspectionResponseDTO saveInspection(InspectionRequestDTO dto) {
-
         Inspection inspection = Inspection.builder()
                 .inspectorName(dto.inspectorName())
                 .productName(dto.productName())
@@ -29,28 +28,31 @@ public class InspectionService {
 
         Inspection savedInspection = inspectionRepository.save(inspection);
 
-        return new InspectionResponseDTO(
-                savedInspection.getId(),
-                savedInspection.getInspectorName(),
-                savedInspection.getProductName(),
-                savedInspection.getStatus(),
-                savedInspection.getObservations(),
-                savedInspection.getInspectionDate()
-        );
+        return toResponseDTO(savedInspection);
     }
 
     public List<InspectionResponseDTO> getAllInspections() {
-
         return inspectionRepository.findAll()
                 .stream()
-                .map(inspection -> new InspectionResponseDTO(
-                        inspection.getId(),
-                        inspection.getInspectorName(),
-                        inspection.getProductName(),
-                        inspection.getStatus(),
-                        inspection.getObservations(),
-                        inspection.getInspectionDate()
-                ))
+                .map(this::toResponseDTO)
                 .toList();
+    }
+
+    public InspectionResponseDTO getInspectionById(Long id) {
+        Inspection inspection = inspectionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Inspection not found"));
+
+        return toResponseDTO(inspection);
+    }
+
+    private InspectionResponseDTO toResponseDTO(Inspection inspection) {
+        return new InspectionResponseDTO(
+                inspection.getId(),
+                inspection.getInspectorName(),
+                inspection.getProductName(),
+                inspection.getStatus(),
+                inspection.getObservations(),
+                inspection.getInspectionDate()
+        );
     }
 }

@@ -33,4 +33,10 @@ public class InspectionController {
     public List<InspectionResponseDTO> getAllInspections() {
         return inspectionService.getAllInspections();
     }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Find inspection by ID")
+    public InspectionResponseDTO getInspectionById(@PathVariable Long id) {
+        return inspectionService.getInspectionById(id);
+    }
 }
