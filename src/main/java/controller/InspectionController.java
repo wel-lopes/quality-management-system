@@ -49,4 +49,10 @@ public class InspectionController {
         return inspectionService.updateInspection(id, dto);
     }
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete inspection by ID")
+    public void deleteInspection(@PathVariable Long id) {
+        inspectionService.deleteInspection(id);
+    }
+
 }

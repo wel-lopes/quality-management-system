@@ -60,6 +60,13 @@ public class InspectionService {
         return toResponseDTO(updatedInspection);
     }
 
+    public void deleteInspection(Long id) {
+        Inspection inspection = inspectionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Inspection not found"));
+
+        inspectionRepository.delete(inspection);
+    }
+
     private InspectionResponseDTO toResponseDTO(Inspection inspection) {
         return new InspectionResponseDTO(
                 inspection.getId(),
