@@ -1,5 +1,6 @@
 package com.weberth.qualitymanagementsystem.entity;
 
+import com.weberth.qualitymanagementsystem.enums.InspectionStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,8 @@ public class Inspection {
 
     private String productName;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InspectionStatus status;
 
     private String observations;
 

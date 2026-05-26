@@ -1,6 +1,8 @@
 package com.weberth.qualitymanagementsystem.dto;
 
+import com.weberth.qualitymanagementsystem.enums.InspectionStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -11,8 +13,8 @@ public record InspectionRequestDTO(
         @NotBlank(message = "Product name is required")
         String productName,
 
-        @NotBlank(message = "Status is required")
-        String status,
+        @NotNull(message = "Status is required")
+        InspectionStatus status,
 
         String observations,
 
