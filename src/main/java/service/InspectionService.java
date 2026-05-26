@@ -45,6 +45,21 @@ public class InspectionService {
         return toResponseDTO(inspection);
     }
 
+    public InspectionResponseDTO updateInspection(Long id, InspectionRequestDTO dto) {
+        Inspection inspection = inspectionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Inspection not found"));
+
+        inspection.setInspectorName(dto.inspectorName());
+        inspection.setProductName(dto.productName());
+        inspection.setStatus(dto.status());
+        inspection.setObservations(dto.observations());
+        inspection.setInspectionDate(dto.inspectionDate());
+
+        Inspection updatedInspection = inspectionRepository.save(inspection);
+
+        return toResponseDTO(updatedInspection);
+    }
+
     private InspectionResponseDTO toResponseDTO(Inspection inspection) {
         return new InspectionResponseDTO(
                 inspection.getId(),

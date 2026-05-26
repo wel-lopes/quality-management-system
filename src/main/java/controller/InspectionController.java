@@ -39,4 +39,14 @@ public class InspectionController {
     public InspectionResponseDTO getInspectionById(@PathVariable Long id) {
         return inspectionService.getInspectionById(id);
     }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update inspection by ID")
+    public InspectionResponseDTO updateInspection(
+            @PathVariable Long id,
+            @Valid @RequestBody InspectionRequestDTO dto
+    ) {
+        return inspectionService.updateInspection(id, dto);
+    }
+
 }
