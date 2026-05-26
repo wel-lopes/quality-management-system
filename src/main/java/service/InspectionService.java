@@ -3,6 +3,7 @@ package com.weberth.qualitymanagementsystem.service;
 import com.weberth.qualitymanagementsystem.dto.InspectionRequestDTO;
 import com.weberth.qualitymanagementsystem.dto.InspectionResponseDTO;
 import com.weberth.qualitymanagementsystem.entity.Inspection;
+import com.weberth.qualitymanagementsystem.exception.InspectionNotFoundException;
 import com.weberth.qualitymanagementsystem.repository.InspectionRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,14 +41,14 @@ public class InspectionService {
 
     public InspectionResponseDTO getInspectionById(Long id) {
         Inspection inspection = inspectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inspection not found"));
+                .orElseThrow(() -> new InspectionNotFoundException(id));
 
         return toResponseDTO(inspection);
     }
 
     public InspectionResponseDTO updateInspection(Long id, InspectionRequestDTO dto) {
         Inspection inspection = inspectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inspection not found"));
+                .orElseThrow(() -> new InspectionNotFoundException(id));
 
         inspection.setInspectorName(dto.inspectorName());
         inspection.setProductName(dto.productName());
@@ -62,7 +63,7 @@ public class InspectionService {
 
     public void deleteInspection(Long id) {
         Inspection inspection = inspectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inspection not found"));
+                .orElseThrow(() -> new InspectionNotFoundException(id));
 
         inspectionRepository.delete(inspection);
     }
