@@ -2,9 +2,7 @@ package com.weberth.qualitymanagementsystem.controller;
 
 import com.weberth.qualitymanagementsystem.dto.InspectionRequestDTO;
 import com.weberth.qualitymanagementsystem.dto.InspectionResponseDTO;
-import com.weberth.qualitymanagementsystem.entity.Inspection;
 import com.weberth.qualitymanagementsystem.service.InspectionService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;

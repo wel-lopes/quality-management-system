@@ -3,8 +3,9 @@ package com.weberth.qualitymanagementsystem.entity;
 import com.weberth.qualitymanagementsystem.enums.InspectionStatus;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 @Entity
 @Table(name = "inspections")
@@ -29,4 +30,8 @@ public class Inspection {
     private String observations;
 
     private LocalDateTime inspectionDate;
+
+    @OneToMany(mappedBy = "inspection")
+    @JsonIgnore
+    private List<NonConformity> nonConformities;
 }
