@@ -6,6 +6,8 @@ import com.weberth.qualitymanagementsystem.service.NonConformityService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/inspections/{inspectionId}/non-conformities")
 public class NonConformityController {
@@ -22,5 +24,12 @@ public class NonConformityController {
             @Valid @RequestBody NonConformityRequestDTO dto
     ) {
         return nonConformityService.createNonConformity(inspectionId, dto);
+    }
+
+    @GetMapping
+    public List<NonConformityResponseDTO> getNonConformitiesByInspection(
+            @PathVariable Long inspectionId
+    ) {
+        return nonConformityService.getByInspection(inspectionId);
     }
 }

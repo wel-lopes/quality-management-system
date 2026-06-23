@@ -8,6 +8,8 @@ import com.weberth.qualitymanagementsystem.exception.InspectionNotFoundException
 import com.weberth.qualitymanagementsystem.repository.NonConformityRepository;
 import com.weberth.qualitymanagementsystem.repository.InspectionRepository;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NonConformityService {
@@ -45,5 +47,20 @@ public class NonConformityService {
                 nonConformity.getCorrectiveAction(),
                 nonConformity.getInspection().getId()
         );
+    }
+
+    public List<NonConformityResponseDTO> getByInspection(Long inspectionId) {
+        Inspection inspection = inspectionRepository.findById(inspectionId)
+                .orElseThrow(() -> new InspectionNotFoundException(inspectionId));
+
+        List<NonConformity> nonConformities =
+                nonConformityRepository.findByInspectionId(inspectionId);
+        List<NonConformityResponseDTO> response = new ArrayList<>();
+
+        for (NonConformity nonConformity : nonConformities) {
+            response.add(toResponseDTO(nonConformity));
+        }
+
+        return response;
     }
 }
